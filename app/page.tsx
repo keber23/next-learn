@@ -1,95 +1,94 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import useMoviesQuery from "@/hooks/useMoviesQuery";
+import GenreSelect from "@/app/components/GenreSelect";
+import { genres } from "./components/GenreSelect";
+import SortControl from "@/app/components/SortControl";
+import { Movie, SearchParams, SortOption } from "@/types";
+import MoviesFound from "@/app/components/MoviesFound";
+import { fetchMovies } from "./lib/actions";
+import MovieTile from "./components/MovieTile";
+import SearchForm from "./components/SearchForm";
+export default async function Home({
+  searchParams,
+}: {
+  searchParams?: {
+    genre?: string;
+    query?: string;
+    sortBy?: string;
+  };
+}) {
+  // const [searchParams, setSearchParams] = useSearchParams();
+  // const queryParams = Object.fromEntries(searchParams.entries());
 
-export default function Home() {
+  let searchQuery = searchParams?.query || "";
+  let selectedGenre = searchParams?.genre || "";
+  let selectedSort = searchParams?.sortBy || "release_date";
+
+  //let selectedGenre = genres[0];
+
+  // const navigate = useNavigate();
+
+  const data = await fetchMovies(searchQuery, selectedGenre, selectedSort);
+
+  // const handleSortChange = (newSort: SortOption) => {
+  //   setSearchParams((searchParams) => {
+  //     searchParams.set("sortBy", newSort);
+  //     return searchParams;
+  //   });
+  // };
+
+  // const handleGenreSelect = (genre: Genre) => {
+  //   let selectedGenre = genre.toString().toLowerCase();
+
+  // if (selectedGenre === "all") {
+  //   setSearchParams((searchParams) => {
+  //     searchParams.delete("genre");
+  //     return searchParams;
+  //   });
+  // } else {
+  //   setSearchParams((searchParams) => {
+  //     searchParams.set("genre", selectedGenre);
+  //     return searchParams;
+  //   });
+  // }
+  //};
+
+  function onMovieClick(movieId: number): void {
+    // navigate({ pathname: `/${movieId}`, search: searchParams.toString() });
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
+  function onMovieEdit(movieId: number): void {
+    //navigate({ pathname: `/${movieId}/edit`, search: searchParams.toString() });
+  }
+
+  const renderMovieTiles = (movies: Movie[] | undefined) => {
+    return movies?.map((movie) => <MovieTile key={movie.id} movie={movie} />);
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className={styles.container}>
+      <section className={styles.movieSearchContainer}>
+        <div className={styles.topRight}>
+          <button className={styles.addButton}>+ ADD MOVIE</button>
         </div>
+        <h1>FIND YOUR MOVIE</h1>
+        <SearchForm initialSearchText={searchQuery} />
+      </section>
+      <div className={styles.movieGenreSortContainer}>
+        <GenreSelect selectedGenre={searchParams?.genre} />
+        <SortControl initialSelection={searchParams?.sortBy as SortOption} />
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <MoviesFound count={data?.length} />
+      <div className={styles.movieListContainer}>
+        {/* {isLoading ? <Loader /> : renderMovieTiles(data)} */}
+        {renderMovieTiles(data)}
       </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </div>
   );
 }

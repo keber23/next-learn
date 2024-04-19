@@ -1,0 +1,59 @@
+.movieDetails {
+  display: flex;
+  margin-bottom: 20px;
+  background-color: black;
+  overflow: hidden;
+}
+
+.poster {
+  width: 322px;
+}
+
+.poster img {
+  width: 323px;
+  height: 510px;
+}
+
+.info {
+  flex-grow: 1;
+  padding: 20px;
+  color: white;
+}
+
+.info h2 {
+  margin: 0;
+  font-size: 28px;
+  display: inline-block;
+}
+
+.info p {
+  margin: 5px 0;
+}
+
+.genres {
+  color: grey;
+  font-size: small;
+}
+
+.rating {
+  display: inline-block;
+  background-color: #333;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 30px;
+  margin-left: 10px;
+  border: 1px solid white;
+}
+
+.release-date {
+  color: red;
+}
+
+.duration {
+  display: inline-block;
+  margin-left: 50px;
+  color: red;
+}

@@ -1,0 +1,42 @@
+.nav {
+  flex-direction: row;
+  background-color: black;
+}
+
+.form {
+  display: inline;
+}
+
+.button {
+  color: white;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0 8px;
+  font-size: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+}
+
+.button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background-color: transparent;
+}
+
+.button:hover::after {
+  background-color: transparent;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.selected {
+  border-bottom: 2px solid red;
+}

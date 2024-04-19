@@ -1,0 +1,84 @@
+.movieTile {
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  background-color: black;
+  width: 323px;
+  height: 510px;
+}
+
+.info {
+  display: flex;
+  color: white;
+  justify-content: space-between;
+}
+
+.info h2 {
+  margin: 0;
+  font-size: 20px;
+  display: inline-block;
+}
+
+.info p {
+  margin: 5px 0;
+}
+
+.releaseYear {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 45px;
+  text-align: center;
+  margin: 1px;
+  height: 23px;
+}
+
+.genres {
+  color: grey;
+  font-size: small;
+  margin: 1px;
+}
+
+.contextMenuButton {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: black;
+  border: none;
+  color: #ffffff;
+  font-size: 18px;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contextMenu {
+  position: absolute;
+  top: 30px;
+  right: 10px;
+  background-color: black;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 10;
+}
+
+.contextMenuItem {
+  display: block;
+  color: #ffffff;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.contextMenuItem:hover {
+  background-color: red;
+}
